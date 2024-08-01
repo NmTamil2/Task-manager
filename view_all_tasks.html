@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    <a href="{% url 'add_task' %}">Add New Task</a>
+    <br><br>
+    <form method="GET" action="{% url 'filter_tasks_by_priority' 'High' %}">
+        <button type="submit">Filter High Priority</button>
+    </form>
+    <form method="GET" action="{% url 'filter_tasks_by_priority' 'Medium' %}">
+        <button type="submit">Filter Medium Priority</button>
+    </form>
+    <form method="GET" action="{% url 'filter_tasks_by_priority' 'Low' %}">
+        <button type="submit">Filter Low Priority</button>
+    </form>
+    <br>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+                <a href="{% url 'edit_task' task.id %}">Edit</a> |
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
